@@ -1,4 +1,5 @@
 # Ignore config files:
+.prettierrc.json
 nodemon.json
 package.json
 tsconfig.json
