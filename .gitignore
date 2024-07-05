@@ -1,16 +1,18 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# compiled output
+# Compiled output
 /dist
+
+# Build Code
+/deploy/dist.zip
+
+# Temporary files
 /tmp
 
 # dependencies
 /node_modules
 /package-lock.json
 /.husky
-
-# Build Code
-/deploy/dist.zip
 
 # IDEs and editors
 /.idea
