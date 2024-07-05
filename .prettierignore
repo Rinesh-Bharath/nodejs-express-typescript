@@ -1,0 +1,11 @@
+# Ignore config files:
+nodemon.json
+package.json
+tsconfig.json
+
+# Ignore artifacts:
+build
+coverage
+
+# Ignore all HTML files:
+**/*.html
