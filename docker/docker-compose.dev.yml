@@ -1,0 +1,11 @@
+services:
+  node-express-ts:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: node-express-ts
+    ports:
+      - "9229:9229"
+      - '4020:4020'
+    env_file: ../.env
+
