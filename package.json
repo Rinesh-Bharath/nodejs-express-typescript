@@ -8,8 +8,6 @@
     "start": "node dist/server.js",
     "dev": "nodemon src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "npx eslint src/**",
-    "lint-fix": "npx eslint --fix src/**",
     "format": "npx prettier --write src/",
     "format-all": "npx prettier . --write",
     "prepare": "husky"
@@ -22,18 +20,15 @@
     "express": "^4.19.2"
   },
   "devDependencies": {
-    "@eslint/js": "^9.6.0",
     "@types/express": "^4.17.21",
     "@types/node": "^20.14.9",
-    "eslint": "^9.6.0",
     "globals": "^15.8.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.7",
     "nodemon": "^3.1.4",
     "prettier": "^3.3.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.3",
-    "typescript-eslint": "^7.15.0"
+    "typescript": "^5.5.3"
   },
   "lint-staged": {
     "src/**/*.ts": "prettier --write --ignore-unknown"
