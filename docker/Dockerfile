@@ -1,7 +1,8 @@
 # Stage 1: Select your base image to start with
-FROM node:latest as builder
+FROM node:lts-alpine as builder
 
 ## Create app directory
+## Specify the "working directory" for the rest of the stage
 ## this is the location where you will be inside the container
 WORKDIR /app
 
@@ -14,11 +15,8 @@ COPY package*.json ./
 ## RUN npm ci --only=production
 RUN npm ci
 
-## Specify the "working directory" for the rest of the stage
-WORKDIR /app
-
-## Bundle app source
-COPY . /app
+## Copy the rest of the application code
+COPY . .
 
 ## Allows port to be publicly available
 EXPOSE 9229
