@@ -18,10 +18,6 @@ RUN npm ci
 ## Copy the rest of the application code
 COPY . .
 
-## Allows port to be publicly available
-EXPOSE 9229
-EXPOSE 4020
-
 ## Make sure the container is not running as root
 USER node
 

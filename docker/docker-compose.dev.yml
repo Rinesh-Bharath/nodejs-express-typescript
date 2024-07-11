@@ -1,11 +1,37 @@
+name: my-all-in-one-app
+
 services:
-  node-express-ts:
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile
-    container_name: node-express-ts
+  backend-core:
+    container_name: backend-core-c # Commented for scaling the containers (Docker swarm)
+    restart: unless-stopped # Ignored if specified deploy.restart_policy (Docker swarm)
+    tmpfs: /tmp
     ports:
       - "9229:9229"
       - '4020:4020'
+    networks:
+      - frontend
+      - backend
     env_file: ../.env
+    environment:
+      - NODE_ENV=development
+      - debug=true
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
 
+networks:
+  frontend:
+  backend:
+
+volumes:
+  mongodb_data:
+  redis_data:
+  elasticsearch_data:
