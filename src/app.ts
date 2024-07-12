@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import pkg from 'body-parser';
-import { readUser } from './core/user';
+import { createUser, readUser } from './core/user';
 
 const { json } = pkg;
 
@@ -15,5 +15,6 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.get('/user', readUser);
+app.post('/user', createUser);
 
 export default app;

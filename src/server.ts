@@ -1,5 +1,6 @@
 import app from './app';
 import dotenv from 'dotenv';
+import { connectDB } from './repository/mongodb/init';
 
 dotenv.config();
 
@@ -7,6 +8,9 @@ init();
 
 async function init() {
   try {
+    // Connects the mongo database
+    await connectDB();
+
     app.listen(process.env.SERVER_PORT, () => {
       console.log(`[server]: Server is running at ${process.env.SERVER_HOST}:${process.env.SERVER_PORT}`);
     });
