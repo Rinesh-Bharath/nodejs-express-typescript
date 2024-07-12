@@ -37,6 +37,8 @@ services:
       mongodb-core: 
         condition: service_started
         restart: true
+    links:
+      - mongodb-core
 
   mongodb-core:
     image: mongo:latest
@@ -49,9 +51,6 @@ services:
       - back-tier
     volumes:
       - mongodb-data:/data/db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
 
 networks:
   front-tier:
