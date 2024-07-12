@@ -1,6 +1,11 @@
 name: my-all-in-one-app
 
 services:
+  # proxy-core:
+  #   build: ./proxy
+  #   networks:
+  #     - front-tier
+
   backend-core:
     container_name: backend-core-c # Commented for scaling the containers (Docker swarm)
     restart: unless-stopped # Ignored if specified deploy.restart_policy (Docker swarm)
@@ -9,8 +14,10 @@ services:
       - "9229:9229"
       - '4020:4020'
     networks:
-      - frontend
-      - backend
+      - front-tier
+      - back-tier
+    volumes:
+      - mongodb-data:/etc/data
     env_file: ../.env
     environment:
       - NODE_ENV=development
@@ -26,12 +33,40 @@ services:
         delay: 5s
         max_attempts: 3
         window: 120s
+    depends_on:
+      mongodb-core: 
+        condition: service_started
+        restart: true
+
+  mongodb-core:
+    image: mongo:latest
+    command: mongod --quiet --logpath /dev/null 
+    container_name: mongodb-core-c # Commented for scaling the containers (Docker swarm)
+    restart: unless-stopped # Ignored if specified deploy.restart_policy (Docker swarm)
+    ports:
+      - '27017:27017'
+    networks:
+      - back-tier
+    volumes:
+      - mongodb-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
 
 networks:
-  frontend:
-  backend:
+  front-tier:
+    name: my-frontend-network
+    driver: bridge
+  back-tier:
+    name: my-backend-network
+    driver: bridge
 
 volumes:
-  mongodb_data:
-  redis_data:
-  elasticsearch_data:
+  redis-data:
+    name: "my-redis-data"
+  mysql-data:
+    name: "my-mysql-data"
+  mongodb-data:
+    name: "my-mongodb-data"
+  elasticsearch-data:
+    name: "my-elasticsearch-data"
