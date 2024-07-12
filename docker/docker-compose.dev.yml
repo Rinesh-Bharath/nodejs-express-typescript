@@ -19,9 +19,6 @@ services:
     volumes:
       - mongodb-data:/etc/data
     env_file: ../.env
-    environment:
-      - NODE_ENV=development
-      - debug=true
     build:
       context: ..
       dockerfile: docker/Dockerfile
@@ -61,11 +58,5 @@ networks:
     driver: bridge
 
 volumes:
-  redis-data:
-    name: "my-redis-data"
-  mysql-data:
-    name: "my-mysql-data"
   mongodb-data:
     name: "my-mongodb-data"
-  elasticsearch-data:
-    name: "my-elasticsearch-data"
