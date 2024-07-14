@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { ulid } from 'ulid';
+
 import { connectDB } from '../repository/mongodb/init';
 import { IUser, User } from '../repository/mongodb/user';
 

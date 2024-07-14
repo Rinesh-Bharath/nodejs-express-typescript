@@ -1,5 +1,6 @@
-import app from './app';
 import dotenv from 'dotenv';
+
+import app from './app';
 import { connectDB } from './repository/mongodb/init';
 
 dotenv.config();

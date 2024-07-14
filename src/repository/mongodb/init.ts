@@ -1,4 +1,5 @@
 import { connect, ConnectOptions } from 'mongoose';
+
 const { MONGO_USERNAME, MONGO_PASSWORD, MONGO_DATABASE } = process.env as Readonly<{
   MONGO_USERNAME: string;
   MONGO_PASSWORD: string;

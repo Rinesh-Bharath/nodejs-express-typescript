@@ -1,6 +1,7 @@
-import express, { Express, Request, Response } from 'express';
-import dotenv from 'dotenv';
 import pkg from 'body-parser';
+import dotenv from 'dotenv';
+import express, { Express, Request, Response } from 'express';
+
 import { createUser, readUser } from './core/user';
 
 const { json } = pkg;
