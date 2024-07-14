@@ -1,13 +1,23 @@
-# mongo db user - privileges - readWrite
-# import sorter
+# test framework
+
+# request middleware
+
+# user authentication middleware
+
 # error handling middleware
+
 # validation layer
 
 # sonarcube
+
 # circleci
-# readme
+
 # commitizen
+
 # DDD - domain driven design
+
 # routes/controllers/services
-# test framework
-# logging
+
+# Mongodb Improvements
+
+## db user to have less privileges (readWrite)

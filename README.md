@@ -2,9 +2,54 @@
 
 The Nodejs + Express + TypeScript + Docker codebase.
 
+## Features
+
+- `Monorepo` tooling using [Nx](https://nx.dev/).
+- [SOLID](https://www.bmc.com/blogs/solid-design-principles/) codebase following the [Hexagonal Architecture](https://www.expatdev.com/posts/hexagonal-architecture-in-java/).
+- [DRY](https://zapier.com/blog/dont-repeat-yourself/) codebase using `Nx Libraries`.
+- [12 Factor](https://12factor.net/) compliant codebase.
+- Strict type checking using `TypeScript`.
+- Linting & Static Code Analysis using `ESLint`.
+- Code Formatting using `Prettier`.
+- Git hooks using `husky`.
+- Conventional Commits using `Commitlint` & `Commitizen`.
+- Sorting imports using `TypeScript Import Sorter`
+- Unit/Integration testing using `Jest`.
+- Load/Automation testing using `k6`.
+- Logging library using `pino`
+- CI/CD using `Jenkins`.
+
+## Read about the best practices/patterns we follow
+
+- [Organizing projects and shared libraries in a Monorepo](https://monorepo.tools/)
+- [Backend Best Practices](https://github.com/Sairyss/backend-best-practices)
+- [Node.js Best Practices](https://github.com/goldbergyoni/nodebestpractices)
+- [JavaScript Testing Best Practices](https://github.com/goldbergyoni/javascript-testing-best-practices)
+- [Node.js Integration Tests Best Practices](https://github.com/testjavascript/nodejs-integration-tests-best-practices)
+
 ## How to setup the environment
 
-1. Install `Docker` and `Docker Compose`
+The guide assumes you are running on a UNIX based OS for consistency and reproducible dev environments, so either Linux or MacOS. If you are using Windows, then you must use [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about).
+
+1. Install the following tools if you don't have them installed on your machine:
+
+   - `Docker`: Latest Version
+   - `Docker Compose`: Latest Version
+   - `nvm`: Latest Version
+   - `Node.js`: v18.x.x using NVM
+   - `AWS CLI`: v2.x.x (Please ensure that you install it using the official AWS installers and not via a package manager like pip or homebrew as it causes compatibility issues with other tools)
+   - `AWS SAM CLI`: v1.103.0 (Please ensure that you install it using the official AWS installers and not via a package manager like pip or homebrew as it causes compatibility issues with other tools)
+   - `AWS SAM CLI Local (Localstack)`: v1.67.0
+   - `Make`: v3.x.x
+   - `k6`: v0.46.0
+   - `jq`
+   - `rsync`
+
+2. Configure `AWS CLI` to use your personal AWS IAM User credentials if you are planning to use any of AWS services
+
+   ```
+   aws configure
+   ```
 
 ## How to run for development
 
