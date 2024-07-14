@@ -1,4 +1,5 @@
 import { connect, ConnectOptions } from 'mongoose';
+import { serverLogger as logger } from '../../shared/logger';
 
 const { MONGO_USERNAME, MONGO_PASSWORD, MONGO_DATABASE } = process.env as Readonly<{
   MONGO_USERNAME: string;
@@ -21,9 +22,9 @@ export async function connectDB(): Promise<void> {
     } as ConnectOptions;
     await connect(connectionString, connectionOptions);
     isConnected = true;
-    console.log('MongoDB connected...');
+    logger.info('MongoDB connected...');
   } catch (err) {
-    console.error('Failed to connect to MongoDB', err);
+    logger.error(`Failed to connect to MongoDB - ${err}`);
     process.exit(1);
   }
 }

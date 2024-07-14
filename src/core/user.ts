@@ -3,6 +3,7 @@ import { ulid } from 'ulid';
 
 import { connectDB } from '../repository/mongodb/init';
 import { IUser, User } from '../repository/mongodb/user';
+import { errorLogger as logger } from '../shared/logger';
 
 export async function createUser(req: Request, res: Response) {
   try {
@@ -21,6 +22,12 @@ export async function createUser(req: Request, res: Response) {
       data: user,
     });
   } catch (error) {
+    logger.error(
+      {
+        requestId: req.body.requestId,
+      },
+      'Create user failed'
+    );
     throw error;
   }
 }
@@ -45,6 +52,12 @@ export async function readUser(req: Request, res: Response) {
       data: user,
     });
   } catch (error) {
+    logger.error(
+      {
+        requestId: req.body.requestId,
+      },
+      'Read user failed'
+    );
     throw error;
   }
 }

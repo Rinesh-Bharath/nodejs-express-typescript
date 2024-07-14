@@ -18,6 +18,9 @@ RUN npm ci
 ## Copy the rest of the application code
 COPY . .
 
+# Ensure the logs directory exists
+RUN mkdir -p /app/logs
+
 ## Make sure the container is not running as root
 USER node
 

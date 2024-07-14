@@ -18,6 +18,7 @@ services:
       - back-tier
     volumes:
       - ../src:/app/src
+      - ../logs:/app/logs
       - mongodb-data:/etc/data
     env_file: ../.env
     build:
@@ -61,3 +62,4 @@ networks:
 volumes:
   mongodb-data:
     name: 'my-mongodb-data'
+    external: true
