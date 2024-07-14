@@ -7,7 +7,7 @@
     "build": "npx tsc",
     "start": "node dist/server.js",
     "dev-local": "nodemon src/server.ts",
-    "dev": "docker-compose -p my-all-in-one-app -f docker/docker-compose.dev.yml up --build --remove-orphans",
+    "dev": "docker-compose -p nodejs-express-ts-docker -f docker/docker-compose.dev.yml up --build --remove-orphans",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "npx prettier --write src/",
     "format-all": "npx prettier . --write",

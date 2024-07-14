@@ -1,4 +1,4 @@
-name: my-all-in-one-app
+name: nodejs-express-ts-docker
 
 services:
   # proxy-core:
