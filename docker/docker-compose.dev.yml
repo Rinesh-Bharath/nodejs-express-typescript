@@ -11,8 +11,8 @@ services:
     restart: unless-stopped # Ignored if specified deploy.restart_policy (Docker swarm)
     tmpfs: /tmp
     ports:
-      - "9229:9229"
-      - "4020:4020"
+      - '9229:9229'
+      - '4020:4020'
     networks:
       - front-tier
       - back-tier
@@ -32,7 +32,7 @@ services:
         max_attempts: 3
         window: 120s
     depends_on:
-      mongodb-core: 
+      mongodb-core:
         condition: service_started
         restart: true
     links:
@@ -40,7 +40,7 @@ services:
 
   mongodb-core:
     image: mongo:latest
-    command: mongod --quiet --logpath /dev/null 
+    command: mongod --quiet --logpath /dev/null
     container_name: mongodb-core-c # Commented for scaling the containers (Docker swarm)
     restart: unless-stopped # Ignored if specified deploy.restart_policy (Docker swarm)
     ports:
@@ -60,4 +60,4 @@ networks:
 
 volumes:
   mongodb-data:
-    name: "my-mongodb-data"
+    name: 'my-mongodb-data'
