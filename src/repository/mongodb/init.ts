@@ -22,9 +22,9 @@ export async function connectDB(): Promise<void> {
     } as ConnectOptions;
     await connect(connectionString, connectionOptions);
     isConnected = true;
-    logger.info('MongoDB connected...');
-  } catch (err) {
-    logger.error(`Failed to connect to MongoDB - ${err}`);
+    logger.info('[MongoDB]: MongoDB connected...');
+  } catch (error) {
+    logger.error(error, `[MongoDB]: Failed to connect to MongoDB`);
     process.exit(1);
   }
 }

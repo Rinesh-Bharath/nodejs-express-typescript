@@ -14,8 +14,7 @@ async function init() {
     await connectDB();
 
     app.listen(process.env.SERVER_PORT, () => {
-      console.log(`[server]: Server is running at ${process.env.SERVER_HOST}:${process.env.SERVER_PORT}`);
-      logger.info(`[server]: Server is running at ${process.env.SERVER_HOST}:${process.env.SERVER_PORT}`);
+      logger.info(`[Express]: Server is running at ${process.env.SERVER_HOST}:${process.env.SERVER_PORT}`);
     });
     process.on('SIGINT', function () {
       logger.warn('\nGracefully shutting down from SIGINT (Ctrl-C)');
@@ -23,7 +22,7 @@ async function init() {
       process.exit(0);
     });
   } catch (error) {
-    logger.error(`An error occurred: ${JSON.stringify(error)}`);
+    logger.error(error, `[Express]: An error occurred while starting the server`);
     process.exit(1);
   }
 }

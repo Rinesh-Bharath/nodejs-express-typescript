@@ -22,12 +22,7 @@ export async function createUser(req: Request, res: Response) {
       data: user,
     });
   } catch (error) {
-    logger.error(
-      {
-        requestId: req.body.requestId,
-      },
-      'Create user failed'
-    );
+    logger.error(error, 'Create user failed');
     throw error;
   }
 }
@@ -52,12 +47,7 @@ export async function readUser(req: Request, res: Response) {
       data: user,
     });
   } catch (error) {
-    logger.error(
-      {
-        requestId: req.body.requestId,
-      },
-      'Read user failed'
-    );
+    logger.error(error, 'Read user failed');
     throw error;
   }
 }
