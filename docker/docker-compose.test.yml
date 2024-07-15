@@ -1,0 +1,78 @@
+name: nodejs-express-ts-docker-test
+
+services:
+  # proxy-core:
+  #   build: ./proxy
+  #   networks:
+  #     - front-tier
+
+  backend-core-test:
+    container_name: backend-core-test-c # Commented for scaling the containers (Docker swarm)
+    restart: unless-stopped # Ignored if specified deploy.restart_policy (Docker swarm)
+    tmpfs: /tmp
+    ports:
+      - '9229:9229'
+      - '4020:4020'
+    networks:
+      - front-tier
+      - back-tier
+    volumes:
+      - ../src:/app/src
+      - ../logs:/app/logs
+      - mongodb-data:/etc/data
+    env_file: ../.env
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 1
+        window: 120s
+    depends_on:
+      mongodb-core-test:
+        condition: service_started
+        restart: true
+    links:
+      - mongodb-core-test
+    command:
+      [
+        "npx",
+        "jest",
+        "--runInBand",
+        "--config",
+        "jest.config.js",
+        "--testTimeout",
+        "1500000",
+        "src/tests/user.spec.ts"
+      ]
+
+  mongodb-core-test:
+    image: mongo:latest
+    command: mongod --quiet --logpath /dev/null
+    container_name: mongodb-core-test-c # Commented for scaling the containers (Docker swarm)
+    restart: unless-stopped # Ignored if specified deploy.restart_policy (Docker swarm)
+    ports:
+      - '27017:27017'
+    networks:
+      - back-tier
+    volumes:
+      - mongodb-data:/data/db
+
+networks:
+  front-tier:
+    name: my-frontend-network
+    driver: bridge
+    external: true
+  back-tier:
+    name: my-backend-network
+    driver: bridge
+    external: true
+
+volumes:
+  mongodb-data:
+    name: 'my-mongodb-data'
+    external: true

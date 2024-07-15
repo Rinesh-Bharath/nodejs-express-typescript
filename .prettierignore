@@ -3,6 +3,7 @@
 nodemon.json
 package.json
 tsconfig.json
+jest.config.js
 
 # Ignore artifacts:
 build

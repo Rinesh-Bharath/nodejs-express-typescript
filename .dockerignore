@@ -3,7 +3,8 @@
 .prettierignore
 .prettierrc.json
 nodemon.json
-tsconfig.json
+# Required inside container for running test cases (jest)
+# tsconfig.json 
 
 # Ignore artifacts:
 build
