@@ -1,15 +1,16 @@
 import request from 'supertest';
-
-import { describe, expect, test } from '@jest/globals';
-
+import { describe, expect } from '@jest/globals';
 import app from '../app';
+import { connectDB, disConnectDB } from '../repository/mongodb/init';
 
 const userId = '01J2KSMRYFVVR4G72WK5ZS9QJA';
 
-describe('Sum module', () => {
-  test('adds 1 + 2 to equal 3', () => {
-    expect(3).toBe(3);
-  });
+beforeAll(async () => {
+  await connectDB();
+});
+
+afterAll(async () => {
+  await disConnectDB();
 });
 
 describe('User related endpoints ', () => {
