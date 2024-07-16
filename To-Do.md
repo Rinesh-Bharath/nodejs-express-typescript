@@ -1,16 +1,16 @@
-# test framework
+# faker for fake data
+
+# Zod for validation
+
+# circleci
+
+# sonarcube
 
 # request middleware
 
 # user authentication middleware
 
 # error handling middleware
-
-# validation layer
-
-# sonarcube
-
-# circleci
 
 # commitizen
 
