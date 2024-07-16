@@ -1,5 +1,7 @@
+import request from 'supertest';
+
 import { describe, expect, test } from '@jest/globals';
-const request = require('supertest');
+
 import app from '../app';
 
 const userId = '01J2KSMRYFVVR4G72WK5ZS9QJA';

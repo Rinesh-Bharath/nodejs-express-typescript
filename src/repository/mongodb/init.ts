@@ -1,4 +1,5 @@
 import { connect, ConnectOptions } from 'mongoose';
+
 import { serverLogger as logger } from '../../shared/logger';
 
 const { MONGO_HOST, MONGO_USERNAME, MONGO_PASSWORD, MONGO_DATABASE } = process.env as Readonly<{
