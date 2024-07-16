@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 
 import app from './app';
-import { connectDB } from './repository/mongodb/init';
+import { connectDB, disConnectDB } from './repository/mongodb/init';
 import { serverLogger as logger } from './shared/logger';
 
 dotenv.config();
@@ -16,9 +16,10 @@ async function init() {
     app.listen(process.env.SERVER_PORT, () => {
       logger.info(`[Express]: Server is running at ${process.env.SERVER_HOST}:${process.env.SERVER_PORT}`);
     });
-    process.on('SIGINT', function () {
+    process.on('SIGINT', async function () {
       logger.warn('\nGracefully shutting down from SIGINT (Ctrl-C)');
       // some other closing procedures go here
+      await disConnectDB();
       process.exit(0);
     });
   } catch (error) {

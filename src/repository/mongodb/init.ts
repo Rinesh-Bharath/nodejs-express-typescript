@@ -1,4 +1,4 @@
-import { connect, ConnectOptions } from 'mongoose';
+import { connect, ConnectOptions, disconnect } from 'mongoose';
 
 import { serverLogger as logger } from '../../shared/logger';
 
@@ -9,7 +9,7 @@ const { MONGO_HOST, MONGO_USERNAME, MONGO_PASSWORD, MONGO_DATABASE } = process.e
   MONGO_DATABASE: string;
 }>;
 
-let isConnected = false; // Reuse connection
+let isConnected = false; // Keep track of the connection status
 
 export async function connectDB(): Promise<void> {
   if (isConnected) {
@@ -28,5 +28,18 @@ export async function connectDB(): Promise<void> {
   } catch (error) {
     logger.error(error, `[MongoDB]: Failed to connect to MongoDB`);
     process.exit(1);
+  }
+}
+
+export async function disConnectDB(): Promise<void> {
+  if (!isConnected) {
+    return;
+  }
+  try {
+    await disconnect();
+    isConnected = false;
+    logger.info('[MongoDB]: MongoDB disconnected...');
+  } catch (error) {
+    logger.error(error, `[MongoDB]: Failed to disconnect from MongoDB`);
   }
 }
