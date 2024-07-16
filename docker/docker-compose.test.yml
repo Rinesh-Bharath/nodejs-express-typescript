@@ -20,7 +20,7 @@ services:
       - ../src:/app/src
       - ../logs:/app/logs
       - mongodb-data:/etc/data
-    env_file: ../.env
+    env_file: ../.env.test
     build:
       context: ..
       dockerfile: docker/Dockerfile
@@ -47,6 +47,7 @@ services:
         "jest.config.js",
         "--testTimeout",
         "1500000",
+        "--detectOpenHandles",
         "src/tests/user.spec.ts"
       ]
 
@@ -66,11 +67,9 @@ networks:
   front-tier:
     name: my-frontend-network
     driver: bridge
-    external: true
   back-tier:
     name: my-backend-network
     driver: bridge
-    external: true
 
 volumes:
   mongodb-data:

@@ -20,7 +20,7 @@ services:
       - ../src:/app/src
       - ../logs:/app/logs
       - mongodb-data:/etc/data
-    env_file: ../.env
+    env_file: ../.env.dev
     build:
       context: ..
       dockerfile: docker/Dockerfile
