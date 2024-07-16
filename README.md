@@ -9,15 +9,16 @@ The Nodejs + Express + TypeScript + Docker codebase.
 - [DRY](https://zapier.com/blog/dont-repeat-yourself/) codebase using `Nx Libraries`.
 - [12 Factor](https://12factor.net/) compliant codebase.
 - Strict type checking using `TypeScript`.
+- Logging library using `pino`
 - Linting & Static Code Analysis using `ESLint`.
 - Code Formatting using `Prettier`.
 - Git hooks using `husky`.
 - Conventional Commits using `Commitlint` & `Commitizen`.
 - Sorting imports using `TypeScript Import Sorter`
-- Unit/Integration testing using `Jest`.
-- Load/Automation testing using `k6`.
-- Logging library using `pino`
-- CI/CD using `Jenkins`.
+- Unit testing using `Jest`.
+- Integration testing using `Supertest`.
+- Load testing using `k6`.
+- CI/CD using `CircleCi`.
 
 ## Read about the best practices/patterns we follow
 
