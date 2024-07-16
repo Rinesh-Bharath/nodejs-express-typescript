@@ -21,6 +21,9 @@ COPY . .
 # Ensure the logs directory exists
 RUN mkdir -p /app/logs
 
+# Ensure the coverage directory exists
+RUN mkdir -p /app/coverage
+
 ## Make sure the container is not running as root
 USER node
 

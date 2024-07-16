@@ -19,6 +19,7 @@ services:
     volumes:
       - ../src:/app/src
       - ../logs:/app/logs
+      - ../coverage:/app/coverage
       - mongodb-data:/etc/data
     env_file: ../.env.test
     build:
