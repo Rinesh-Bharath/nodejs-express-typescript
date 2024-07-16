@@ -40,15 +40,15 @@ services:
       - mongodb-core-test
     command:
       [
-        "npx",
-        "jest",
-        "--runInBand",
-        "--config",
-        "jest.config.js",
-        "--testTimeout",
-        "1500000",
-        "--detectOpenHandles",
-        "src/tests/user.spec.ts"
+        'npx',
+        'jest',
+        '--runInBand',
+        '--config',
+        'jest.config.js',
+        '--testTimeout',
+        '1500000',
+        '--detectOpenHandles',
+        'src/tests/user.spec.ts',
       ]
 
   mongodb-core-test:
