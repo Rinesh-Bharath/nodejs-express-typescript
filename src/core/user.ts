@@ -31,17 +31,26 @@ export async function readUser(req: Request, res: Response) {
   try {
     const { userId } = req.query;
 
+    if (!userId) {
+      return res.status(404).json({
+        status: 404,
+        message: 'Missing query params: userId',
+      });
+    }
+
     await connectDB();
 
     const user: IUser | null = await User.findOne({
       userId,
     });
+
     if (!user) {
       return res.status(404).json({
         status: 404,
         message: 'User not found',
       });
     }
+
     res.status(200).json({
       status: 200,
       data: user,
