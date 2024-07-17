@@ -1,5 +1,3 @@
-# faker for fake data
-
 # Zod for validation
 
 # circleci

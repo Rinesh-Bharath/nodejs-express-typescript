@@ -1,14 +1,23 @@
 import request from 'supertest';
+import { faker } from '@faker-js/faker';
 import { describe, expect } from '@jest/globals';
 import app from '../app';
 import { connectDB, disConnectDB } from '../repository/mongodb/init';
+import { IUser } from '../repository/mongodb/user';
 
-let mockUserId: string;
+// Faker JS API reference
+// https://fakerjs.dev/api/
 
-const mockUser = {
-  email: 'email@abc.com',
-  firstName: 'firstname',
-  lastName: 'lastname',
+const sex = faker.person.sexType();
+const firstName = faker.person.firstName(sex);
+const lastName = faker.person.lastName(sex);
+const email = faker.internet.email({ firstName, lastName });
+
+const mockUser: Partial<IUser> = {
+  userId: faker.string.uuid(),
+  email: email,
+  firstName: firstName,
+  lastName: lastName,
 };
 
 beforeAll(async () => {
@@ -33,7 +42,7 @@ describe('POST /user', () => {
     const { status: statusCode, data: user } = response.body;
     expect(statusCode).toEqual(200);
     const { userId, email } = user;
-    mockUserId = userId;
+    mockUser.userId = userId;
     expect(email).toEqual(mockUser.email);
   });
 });
@@ -54,11 +63,11 @@ describe('GET /user', () => {
   });
 
   it('Valid userId should respond with a user', async () => {
-    const response = await request(app).get(`/user?userId=${mockUserId}`);
+    const response = await request(app).get(`/user?userId=${mockUser.userId}`);
     expect(response.status).toBe(200);
     const { status: statusCode, data } = response.body;
     expect(statusCode).toEqual(200);
     const { userId } = data;
-    expect(userId).toEqual(mockUserId);
+    expect(userId).toEqual(mockUser.userId);
   });
 });
