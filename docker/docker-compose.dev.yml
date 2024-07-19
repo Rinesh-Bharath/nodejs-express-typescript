@@ -2,10 +2,10 @@ name: nodejs-express-ts-docker
 
 include:
   - path:
-     - services/docker-compose.mongodb.yml
-     - networks/docker-compose.custom.yml
-     - volumes/docker-compose.mongodb.yml
-     
+      - services/docker-compose.mongodb.yml
+      - networks/docker-compose.custom.yml
+      - volumes/docker-compose.mongodb.yml
+
 services:
   backend-core:
     container_name: backend-core-c # Commented for scaling the containers (Docker swarm)

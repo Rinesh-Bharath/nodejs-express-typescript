@@ -2,10 +2,10 @@ name: nodejs-express-ts-docker-test
 
 include:
   - path:
-     - services/docker-compose.mongodb.yml
-     - networks/docker-compose.custom.yml
-     - volumes/docker-compose.mongodb.yml
-     
+      - services/docker-compose.mongodb.yml
+      - networks/docker-compose.custom.yml
+      - volumes/docker-compose.mongodb.yml
+
 services:
   backend-core-test:
     container_name: backend-core-test-c # Commented for scaling the containers (Docker swarm)
