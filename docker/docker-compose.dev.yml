@@ -65,4 +65,3 @@ networks:
 volumes:
   mongodb-data:
     name: 'my-mongodb-data'
-    external: true
