@@ -1,4 +1,5 @@
 import { ulid } from 'ulid';
+
 import { connectDB } from '../../repository/mongodb/init';
 import { IUser, User } from '../../repository/mongodb/user';
 import { errorLogger as logger } from '../../shared/logger';

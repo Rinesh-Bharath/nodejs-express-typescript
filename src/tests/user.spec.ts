@@ -1,6 +1,8 @@
 import request from 'supertest';
+
 import { faker } from '@faker-js/faker';
 import { describe, expect } from '@jest/globals';
+
 import app from '../app';
 import { connectDB, disConnectDB } from '../repository/mongodb/init';
 import { IUser } from '../repository/mongodb/user';

@@ -2,8 +2,9 @@ import pkg from 'body-parser';
 import dotenv from 'dotenv';
 import express, { Express, Request, Response } from 'express';
 import pinoHttp from 'pino-http';
-import { httpLogger as logger } from './shared/logger';
+
 import userRouter from './core/user/router';
+import { httpLogger as logger } from './shared/logger';
 
 const { json } = pkg;
 

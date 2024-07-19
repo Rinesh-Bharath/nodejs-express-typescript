@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
-import { createUserService, readUserService } from './service';
-import { errorLogger as logger } from '../../shared/logger';
+
 import { CustomError } from '../../shared/error/custom-error';
+import { errorLogger as logger } from '../../shared/logger';
 import { ControllerResult } from '../../shared/result/controller-result.interface';
+import { createUserService, readUserService } from './service';
 
 export async function createUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   try {

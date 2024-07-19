@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
-import { errorLogger as logger } from '../shared/logger';
+
 import { CustomError } from '../shared/error/custom-error';
+import { errorLogger as logger } from '../shared/logger';
 import { ControllerResult } from '../shared/result/controller-result.interface';
 
 export function errorHandler(err: CustomError, req: Request, res: Response): Response {
