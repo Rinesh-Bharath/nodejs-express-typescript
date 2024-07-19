@@ -5,6 +5,12 @@ package.json
 tsconfig.json
 jest.config.js
 
+# Ignore Workflows:
+.github
+
+# Ignore CI/CD:
+.circleci
+
 # Ignore artifacts:
 build
 coverage
