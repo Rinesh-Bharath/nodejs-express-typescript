@@ -1,5 +1,5 @@
 # Stage 1: Select your base image to start with
-FROM node:lts-alpine as builder
+FROM node:lts-alpine AS builder
 
 ## Create app directory
 ## Specify the "working directory" for the rest of the stage
