@@ -1,0 +1,3 @@
+volumes:
+  mongodb-data:
+    name: 'my-mongodb-data'

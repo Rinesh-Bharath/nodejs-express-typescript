@@ -1,0 +1,7 @@
+networks:
+  front-tier:
+    name: my-frontend-network
+    driver: bridge
+  back-tier:
+    name: my-backend-network
+    driver: bridge

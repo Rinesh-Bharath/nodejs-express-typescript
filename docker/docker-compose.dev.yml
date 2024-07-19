@@ -1,11 +1,12 @@
 name: nodejs-express-ts-docker
 
+include:
+  - path:
+     - services/docker-compose.mongodb.yml
+     - networks/docker-compose.custom.yml
+     - volumes/docker-compose.mongodb.yml
+     
 services:
-  # proxy-core:
-  #   build: ./proxy
-  #   networks:
-  #     - front-tier
-
   backend-core:
     container_name: backend-core-c # Commented for scaling the containers (Docker swarm)
     restart: unless-stopped # Ignored if specified deploy.restart_policy (Docker swarm)
@@ -38,30 +39,3 @@ services:
         restart: true
     links:
       - mongodb-core
-
-  mongodb-core:
-    image: mongo:latest
-    command: mongod --quiet --logpath /dev/null
-    container_name: mongodb-core-c # Commented for scaling the containers (Docker swarm)
-    restart: unless-stopped # Ignored if specified deploy.restart_policy (Docker swarm)
-    ports:
-      - '27017:27017'
-    networks:
-      - back-tier
-    volumes:
-      - mongodb-data:/data/db
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=example
-
-networks:
-  front-tier:
-    name: my-frontend-network
-    driver: bridge
-  back-tier:
-    name: my-backend-network
-    driver: bridge
-
-volumes:
-  mongodb-data:
-    name: 'my-mongodb-data'
