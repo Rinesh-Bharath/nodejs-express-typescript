@@ -1,15 +1,20 @@
 import { NextFunction, Request, Response } from 'express';
+import { ZodError } from 'zod';
 
 import { CustomError } from '../../shared/error/custom-error';
+import { Message } from '../../shared/error/message.enum';
+import { Status } from '../../shared/error/status.enum';
 import { errorLogger as logger } from '../../shared/logger';
 import { ControllerResult } from '../../shared/result/controller-result.interface';
+import { CreateUserRequest, ReadUserRequest } from './interface';
 import { createUserService, readUserService } from './service';
+import { createUserValidation, readUserValidation } from './validation';
 
 export async function createUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   try {
-    const { email, firstName, lastName } = req.body;
+    createUserValidation(req.body);
 
-    const user = await createUserService(email, firstName, lastName);
+    const user = await createUserService(req.body as CreateUserRequest);
 
     const result: ControllerResult<typeof user> = {
       status: 200,
@@ -17,24 +22,27 @@ export async function createUser(req: Request, res: Response, next: NextFunction
       data: user,
     };
     return res.status(200).json(result);
-  } catch (error) {
-    logger.error(error, 'Create user failed in controller');
-    next(new CustomError(500, 'Internal server error'));
+  } catch (error: any) {
+    if (error instanceof ZodError) {
+      logger.error(error.issues, Message.Validation);
+      return next(new CustomError(Status.BadRequest, Message.Validation, error.issues));
+    } else if (error instanceof CustomError) {
+      return next(error);
+    } else {
+      logger.error(error, error.message);
+      return next(new CustomError(Status.Error, Message.Server));
+    }
   }
 }
 
 export async function readUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   try {
-    const { userId } = req.query;
+    readUserValidation(req.query);
 
-    if (!userId || typeof userId !== 'string') {
-      return next(new CustomError(400, 'Missing or invalid query params: userId'));
-    }
-
-    const user = await readUserService(userId);
+    const user = await readUserService(req.query as ReadUserRequest);
 
     if (!user) {
-      return next(new CustomError(404, 'User not found'));
+      return next(new CustomError(Status.NotFound, 'User not found'));
     }
 
     const result: ControllerResult<typeof user> = {
@@ -44,7 +52,14 @@ export async function readUser(req: Request, res: Response, next: NextFunction):
     };
     return res.status(200).json(result);
   } catch (error) {
-    logger.error(error, 'Read user failed in controller');
-    next(new CustomError(500, 'Internal server error'));
+    if (error instanceof ZodError) {
+      logger.error(error.issues, Message.Validation);
+      return next(new CustomError(Status.BadRequest, Message.Validation, error.issues));
+    } else if (error instanceof CustomError) {
+      return next(error);
+    } else {
+      logger.error(error, Message.Server);
+      return next(new CustomError(Status.Error, Message.Server));
+    }
   }
 }

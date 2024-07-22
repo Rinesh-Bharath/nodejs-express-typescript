@@ -10,8 +10,8 @@ const router: Router = express.Router();
 router.use(timeLog);
 
 // Define route handlers
-router.get('/', readUser);
 router.post('/', createUser);
+router.get('/', readUser);
 
 // Error handling middleware should be the last middleware added
 router.use(errorHandler);
