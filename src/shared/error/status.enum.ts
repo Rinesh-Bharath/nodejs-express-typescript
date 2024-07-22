@@ -1,4 +1,4 @@
-export declare enum Status {
+export enum Status {
   OK = 200,
   Created = 201,
   NoData = 204,
