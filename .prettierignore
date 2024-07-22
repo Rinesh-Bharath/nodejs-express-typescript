@@ -5,11 +5,17 @@ package.json
 tsconfig.json
 jest.config.js
 
+# Ignore CI/CD:
+.circleci
+
 # Ignore Workflows:
 .github
 
-# Ignore CI/CD:
-.circleci
+# Ignore Hooks:
+.husky
+
+# Ignore VSCode config
+.vscode
 
 # Ignore artifacts:
 build
