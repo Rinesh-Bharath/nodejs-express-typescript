@@ -6,15 +6,16 @@ import { Message } from '../../shared/error/message.enum';
 import { Status } from '../../shared/error/status.enum';
 import { errorLogger as logger } from '../../shared/logger';
 import { ControllerResult } from '../../shared/result/controller-result.interface';
-import { CreateUserRequest, ReadUserRequest } from './interface';
 import { createUserService, readUserService } from './service';
-import { createUserValidation, readUserValidation } from './validation';
+import { CreateUserRequestSchema } from './validation/types/createUserTypes';
+import { ReadUserRequestSchema } from './validation/types/readUserTypes';
+import { createUserValidation, readUserValidation } from './validation/validate';
 
 export async function createUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   try {
     createUserValidation(req.body);
 
-    const user = await createUserService(req.body as CreateUserRequest);
+    const user = await createUserService(req.body as CreateUserRequestSchema);
 
     const result: ControllerResult<typeof user> = {
       status: 200,
@@ -39,7 +40,7 @@ export async function readUser(req: Request, res: Response, next: NextFunction):
   try {
     readUserValidation(req.query);
 
-    const user = await readUserService(req.query as ReadUserRequest);
+    const user = await readUserService(req.query as ReadUserRequestSchema);
 
     if (!user) {
       return next(new CustomError(Status.NotFound, 'User not found'));

@@ -4,9 +4,10 @@ import { connectDB } from '../../repository/mongodb/init';
 import { IUser, User } from '../../repository/mongodb/user';
 import { CustomError } from '../../shared/error/custom-error';
 import { Status } from '../../shared/error/status.enum';
-import { CreateUserRequest, ReadUserRequest } from './interface';
+import { CreateUserRequestSchema } from './validation/types/createUserTypes';
+import { ReadUserRequestSchema } from './validation/types/readUserTypes';
 
-export async function createUserService(request: CreateUserRequest): Promise<IUser> {
+export async function createUserService(request: CreateUserRequestSchema): Promise<IUser> {
   try {
     await connectDB();
     const user: IUser = await User.create({
@@ -21,7 +22,7 @@ export async function createUserService(request: CreateUserRequest): Promise<IUs
   }
 }
 
-export async function readUserService(request: ReadUserRequest): Promise<IUser | null> {
+export async function readUserService(request: ReadUserRequestSchema): Promise<IUser | null> {
   try {
     await connectDB();
     const query: { userId?: string } = {};
