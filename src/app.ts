@@ -1,6 +1,7 @@
 import pkg from 'body-parser';
 import dotenv from 'dotenv';
 import express, { Express, Request, Response } from 'express';
+import Helmet from 'helmet';
 import pinoHttp from 'pino-http';
 
 import userRouter from './core/user/router';
@@ -11,6 +12,7 @@ const { json } = pkg;
 dotenv.config();
 
 const app: Express = express();
+app.use(Helmet());
 app.use(json());
 app.use(pinoHttp({ logger }));
 
