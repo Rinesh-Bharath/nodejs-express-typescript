@@ -62,6 +62,12 @@ The guide assumes you are running on a UNIX based OS for consistency and reprodu
 1. Start `Docker`
 2. Run the test `Docker` container: `npm run test`
 
+## How to run the load test
+
+1. Start `Docker`
+2. Run the test `Docker` container: `npm run dev`
+3. Run the k6 script in another terminal: `k6 run k6-tests/script.js`
+
 ## How to commit your work
 
 1. Stage the changes you want to commit using the command `git add .` or using the VSCode Git interface (just stage the files but not commit)
