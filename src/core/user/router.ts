@@ -6,9 +6,6 @@ import { createUser, readUser } from './controller';
 
 const router: Router = express.Router();
 
-// Middleware that logs the request time
-router.use(timeLog);
-
 // Define route handlers
 router.post('/', createUser);
 router.get('/', readUser);
