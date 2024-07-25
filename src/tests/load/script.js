@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 
-const serverUrl = 'http://localhost:4020';
+const serverUrl = `${__ENV.SERVER_HOST}:${__ENV.SERVER_PORT}`;
 
 export const options = {
   scenarios: {
