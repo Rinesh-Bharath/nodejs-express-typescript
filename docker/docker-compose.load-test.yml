@@ -1,0 +1,62 @@
+name: nodejs-express-ts-docker-load-test
+
+include:
+  - path:
+      - services/docker-compose.mongodb.yml
+      - networks/docker-compose.custom.yml
+      - volumes/docker-compose.mongodb.yml
+
+services:
+  load-test:
+    container_name: load-test-c
+    image: grafana/k6
+    networks:
+      - front-tier
+      - back-tier
+    volumes:
+      - ../src/tests/load:/app/load-test
+    env_file: ../.env.load-test
+    depends_on:
+      backend-core:
+        condition: service_healthy
+    links:
+      - backend-core
+    command: ['run', '/app/load-test/script.js']
+
+  backend-core:
+    container_name: backend-core-load-test-c # Commented for scaling the containers (Docker swarm)
+    restart: unless-stopped # Ignored if specified deploy.restart_policy (Docker swarm)
+    tmpfs: /tmp
+    ports:
+      - '9229:9229'
+      - '4020:4020'
+    networks:
+      - front-tier
+      - back-tier
+    volumes:
+      - ../src:/app/src
+      - ../logs:/app/logs
+      - mongodb-data:/etc/data
+    env_file: ../.env.dev
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 1
+        window: 120s
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z localhost 4020"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      mongodb-core:
+        condition: service_started
+        restart: true
+    links:
+      - mongodb-core
