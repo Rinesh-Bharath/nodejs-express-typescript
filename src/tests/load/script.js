@@ -8,16 +8,16 @@ export const options = {
     user_get: {
       exec: 'userget',
       // name of the executor to use
-      executor: 'constant-vus',      
+      executor: 'constant-vus',
       // executor-specific configuration
       vus: 50,
       duration: '30s',
       // env specific config
-      tags: { 
-        name: 'UserGetUrl' 
+      tags: {
+        name: 'UserGetUrl',
       },
-    }
-  }
+    },
+  },
 };
 
 export function userget() {

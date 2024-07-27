@@ -53,7 +53,7 @@ services:
         max_attempts: 1
         window: 120s
     healthcheck:
-      test: ["CMD-SHELL", "nc -z localhost 4020"]
+      test: ['CMD-SHELL', 'nc -z localhost 4020']
       interval: 10s
       timeout: 10s
       retries: 3
@@ -64,13 +64,4 @@ services:
     links:
       - mongodb-core
     command:
-      [
-        'npx',
-        'nodemon',
-        '--exec',
-        'node',
-        '--inspect=0.0.0.0:9229',
-        '--require',
-        'ts-node/register',
-        'src/server.ts'
-      ]
+      ['npx', 'nodemon', '--exec', 'node', '--inspect=0.0.0.0:9229', '--require', 'ts-node/register', 'src/server.ts']
