@@ -1,7 +1,6 @@
 import express, { Router } from 'express';
 
 import { errorHandler } from '../../middleware/error-handler';
-import { timeLog } from '../../middleware/time-log';
 import { createUser, readUser } from './controller';
 
 const router: Router = express.Router();
