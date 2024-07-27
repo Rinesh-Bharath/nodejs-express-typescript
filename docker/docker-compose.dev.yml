@@ -1,4 +1,4 @@
-name: nodejs-express-ts-docker
+name: myapp-dev
 
 include:
   - path:
@@ -8,8 +8,7 @@ include:
 
 services:
   backend-core:
-    container_name: backend-core-c # Commented for scaling the containers (Docker swarm)
-    restart: unless-stopped # Ignored if specified deploy.restart_policy (Docker swarm)
+    restart: unless-stopped
     tmpfs: /tmp
     ports:
       - '9229:9229'
@@ -20,7 +19,9 @@ services:
     volumes:
       - ../src:/app/src
       - ../logs:/app/logs
-    env_file: ../.env.dev
+    env_file: ../.env
+    environment:
+      - NODE_ENV=development
     build:
       context: ..
       dockerfile: docker/Dockerfile

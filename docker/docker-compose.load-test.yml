@@ -1,4 +1,4 @@
-name: nodejs-express-ts-docker-load-test
+name: myapp-test-load
 
 include:
   - path:
@@ -8,14 +8,17 @@ include:
 
 services:
   load-test:
-    container_name: load-test-c
     image: grafana/k6
     networks:
       - front-tier
       - back-tier
     volumes:
       - ../src/tests/load:/app/load-test
-    env_file: ../.env.load-test
+    env_file: ../.env
+    environment:
+      - NODE_ENV=test
+      - MONGO_DATABASE=core
+      - SERVER_HOST=http://backend-core
     depends_on:
       backend-core:
         condition: service_healthy
@@ -24,8 +27,7 @@ services:
     command: ['run', '/app/load-test/script.js']
 
   backend-core:
-    container_name: backend-core-load-test-c # Commented for scaling the containers (Docker swarm)
-    restart: unless-stopped # Ignored if specified deploy.restart_policy (Docker swarm)
+    restart: unless-stopped
     tmpfs: /tmp
     ports:
       - '9229:9229'
@@ -36,7 +38,9 @@ services:
     volumes:
       - ../src:/app/src
       - ../logs:/app/logs
-    env_file: ../.env.dev
+    env_file: ../.env
+    environment:
+      - NODE_ENV=test
     build:
       context: ..
       dockerfile: docker/Dockerfile
@@ -59,3 +63,14 @@ services:
         restart: true
     links:
       - mongodb-core
+    command:
+      [
+        'npx',
+        'nodemon',
+        '--exec',
+        'node',
+        '--inspect=0.0.0.0:9229',
+        '--require',
+        'ts-node/register',
+        'src/server.ts'
+      ]

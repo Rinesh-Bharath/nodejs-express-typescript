@@ -1,4 +1,4 @@
-name: nodejs-express-ts-docker-test
+name: myapp-test-api
 
 include:
   - path:
@@ -7,9 +7,8 @@ include:
       - volumes/docker-compose.mongodb.yml
 
 services:
-  backend-core-test:
-    container_name: backend-core-test-c # Commented for scaling the containers (Docker swarm)
-    restart: unless-stopped # Ignored if specified deploy.restart_policy (Docker swarm)
+  backend-core:
+    restart: unless-stopped
     tmpfs: /tmp
     ports:
       - '9229:9229'
@@ -21,7 +20,10 @@ services:
       - ../src:/app/src
       - ../logs:/app/logs
       - ../coverage:/app/coverage
-    env_file: ../.env.test
+    env_file: ../.env
+    environment:
+      - NODE_ENV=test
+      - MONGO_DATABASE=test
     build:
       context: ..
       dockerfile: docker/Dockerfile
@@ -49,5 +51,5 @@ services:
         '--testTimeout',
         '1500000',
         '--detectOpenHandles',
-        'src/tests/user.spec.ts',
+        'src/tests/api/user.spec.ts',
       ]
