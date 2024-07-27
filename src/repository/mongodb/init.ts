@@ -18,8 +18,6 @@ export async function connectDB(): Promise<void> {
   try {
     const connectionString: string = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:27017/${MONGO_DATABASE}`;
     const connectionOptions: ConnectOptions = {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
       authSource: 'admin', // Authenticate against the admin database
     } as ConnectOptions;
     await connect(connectionString, connectionOptions);
