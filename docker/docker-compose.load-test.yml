@@ -36,7 +36,6 @@ services:
     volumes:
       - ../src:/app/src
       - ../logs:/app/logs
-      - mongodb-data:/etc/data
     env_file: ../.env.dev
     build:
       context: ..
