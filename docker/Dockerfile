@@ -25,4 +25,4 @@ RUN mkdir -p /app/logs /app/coverage
 USER node
 
 # Stage 3: Run the server
-CMD ["npx", "nodemon", "--exec", "node", "--inspect=0.0.0.0:9229", "--require", "ts-node/register", "src/server.ts"]
+CMD ["node", "src/server.ts"]
