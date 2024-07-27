@@ -1,28 +1,23 @@
-# Stage 1: Select your base image to start with
+# Build the application
 FROM node:lts-alpine AS builder
 
-## Create app directory
-## Specify the "working directory" for the rest of the stage
-## this is the location where you will be inside the container
+# Set the working directory
 WORKDIR /app
 
-## A wildcard is used to ensure both package.json AND package-lock.json are copied
-## copying packages first helps take advantage of docker layers
-COPY package*.json ./
+# Copy package.json and package-lock.json with correct ownership
+COPY --chown=node:node package*.json ./
 
-# Stage 2: Install app dependencies
-## If you are building your code for production
-## RUN npm ci --only=production
+# Install dependencies
 RUN npm ci
 
-## Copy the rest of the application code
-COPY . .
+# Copy the rest of the application code with correct ownership
+COPY --chown=node:node . .
 
-# Ensure the required directories exists
-RUN mkdir -p /app/logs /app/coverage
+# Ensure the required directories exist with correct permissions
+RUN mkdir -p /app/logs /app/coverage && chown -R node:node /app
 
-## Make sure the container is not running as root
+# Switch to a non-root user
 USER node
 
-# Stage 3: Run the server
+# Run the server
 CMD ["node", "src/server.ts"]
