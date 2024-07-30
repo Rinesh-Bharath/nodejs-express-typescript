@@ -7,14 +7,13 @@ WORKDIR /app
 # Copy package.json and package-lock.json with correct ownership
 COPY --chown=node:node package*.json ./
 
-# Install dependencies
-RUN npm ci
+# Install dependencies and create logs and coverage directories
+RUN npm ci && \
+    mkdir -p /app/logs /app/coverage && \
+    chown -R node:node /app
 
 # Copy the rest of the application code with correct ownership
 COPY --chown=node:node . .
-
-# Ensure the required directories exist with correct permissions
-RUN mkdir -p /app/logs /app/coverage && chown -R node:node /app
 
 # Switch to a non-root user
 USER node

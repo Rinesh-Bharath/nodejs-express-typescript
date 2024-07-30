@@ -19,7 +19,6 @@ services:
     volumes:
       - ../src:/app/src
       - ../logs:/app/logs
-      - ../coverage:/app/coverage
     env_file: ../.env
     environment:
       - NODE_ENV=test
