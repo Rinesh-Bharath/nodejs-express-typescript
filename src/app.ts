@@ -5,6 +5,7 @@ import Helmet from 'helmet';
 import pinoHttp from 'pino-http';
 
 import userRouter from './core/user/router';
+import { rateLimiter } from './middleware/rate-limiter';
 import { httpLogger as logger } from './shared/logger';
 
 const { json } = pkg;
@@ -14,6 +15,7 @@ dotenv.config();
 const app: Express = express();
 app.use(Helmet());
 app.use(json());
+app.use(rateLimiter);
 app.use(pinoHttp({ logger }));
 
 // Get an instance of the express Router

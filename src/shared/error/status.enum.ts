@@ -7,5 +7,6 @@ export enum Status {
   NotAuthorized = 401,
   NotFound = 404,
   ImATeapot = 418,
+  TooMany = 429,
   Error = 500,
 }
