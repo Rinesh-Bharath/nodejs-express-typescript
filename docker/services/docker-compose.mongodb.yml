@@ -1,10 +1,7 @@
 services:
   mongodb-core:
     image: mongo:latest
-    command: mongod --quiet --logpath /dev/null
-    # Commented for scaling the containers (Docker swarm)
-    # container_name: mongodb-core-c
-    restart: unless-stopped # Ignored if specified deploy.restart_policy (Docker swarm)
+    restart: unless-stopped
     ports:
       - '27017:27017'
     networks:
@@ -14,3 +11,4 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=example
+    command: [ 'mongod', '--quiet', '--logpath', '/dev/null' ]
