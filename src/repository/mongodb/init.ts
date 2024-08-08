@@ -2,8 +2,9 @@ import { connect, ConnectOptions, disconnect } from 'mongoose';
 
 import { serverLogger as logger } from '../../shared/logger';
 
-const { MONGO_HOST, MONGO_USERNAME, MONGO_PASSWORD, MONGO_DATABASE } = process.env as Readonly<{
+const { MONGO_HOST, MONGO_PORT, MONGO_USERNAME, MONGO_PASSWORD, MONGO_DATABASE } = process.env as Readonly<{
   MONGO_HOST: string;
+  MONGO_PORT: string;
   MONGO_USERNAME: string;
   MONGO_PASSWORD: string;
   MONGO_DATABASE: string;
@@ -16,7 +17,7 @@ export async function connectDB(): Promise<void> {
     return;
   }
   try {
-    const connectionString: string = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:27017/${MONGO_DATABASE}`;
+    const connectionString: string = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DATABASE}`;
     const connectionOptions: ConnectOptions = {
       authSource: 'admin', // Authenticate against the admin database
     } as ConnectOptions;
