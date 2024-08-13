@@ -4,6 +4,7 @@ import { connectDB } from '../../repository/mongodb/init';
 import { IUser, User } from '../../repository/mongodb/user';
 import { CustomError } from '../../shared/error/custom-error';
 import { Status } from '../../shared/error/status.enum';
+import { errorLogger as logger } from '../../shared/logger';
 import { CreateUserRequestSchema } from './validation/types/createUserTypes';
 import { ReadUserRequestSchema } from './validation/types/readUserTypes';
 
@@ -18,6 +19,7 @@ export async function createUserService(request: CreateUserRequestSchema): Promi
     });
     return user;
   } catch (error) {
+    logger.error(error, `An error occurred while creating the resource`);
     throw error;
   }
 }
@@ -35,6 +37,7 @@ export async function readUserService(request: ReadUserRequestSchema): Promise<I
     const user: IUser | null = await User.findOne(query);
     return user;
   } catch (error) {
+    logger.error(error, `An error occurred while reading the resource`);
     throw error;
   }
 }
