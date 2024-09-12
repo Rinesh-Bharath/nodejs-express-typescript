@@ -15,6 +15,8 @@ dotenv.config();
 const app: Express = express();
 app.use(Helmet());
 app.use(json());
+app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ limit: '10kb', extended: true }));
 app.use(rateLimiter);
 app.use(pinoHttp({ logger }));
 
